@@ -1,0 +1,77 @@
+
+{% extends "base.html" %}
+{% load kabar_extras %}
+{% block content %}
+
+{% if disp_posts %}
+<ol start={{offset}}>
+    {% for src in disp_posts %}
+    {% if forloop.counter|divisibleby:"2" %}
+    <li class="srclistitem">
+    {% else %}
+    <li class="srclistitemb">
+    {% endif %}
+        <div class="voteimgs"> 
+            {% if ruser|usercanvote:src %}
+            <div class="voteimgsdisp" id="voteimgsdisp{{src.disp_id}}">
+            <a href="/vote/up/" id="voteup{{src.disp_id}}"><img src="/static/vup.gif" /></a> <BR>
+            <a href="/vote/down/" id="votedown{{src.disp_id}}"><img src="/static/vdown.gif" /></a>
+            </div>
+            <div class="novoteimgsdisp" id="novoteimgsdisp{{src.disp_id}}"> 
+            <img src="/static/novup.gif" /><BR><img src="/static/novdown.gif" />
+            </div>
+            {% else %}
+            <img src="/static/novup.gif" /><BR><img src="/static/novdown.gif" />
+            {% endif %}
+        </div>
+        <a class="srctitle" rel="nofollow" href={{src.url}}>{{src.title}} ({{src.hostname}})</a>
+        <br> <span class="srctext">
+        <span id="points{{src.key}}">{{src.points}}</span> points, posted by
+        {{src.posted_by_ruser|nickurlize:0}} {{src.created_on|timesince}} ago
+        </span>
+	<a href="/source/{{src.key.id}}">
+		{% if src.num_comments %}
+		{{src.num_comments}} comments
+		{% else %}
+		comment
+		{% endif %}
+	</a>
+        {% if debug or ruser.is_admin %}
+        rank:{{src.rank}}
+        {% endif %} 
+    </li>
+    {% endfor %}
+</ol>
+{% else %}
+<BR> <h4>No more posts available. You might have reached the last page.</h4> <BR>
+{% endif %}
+
+{% if page %}
+    {% ifnotequal offset 1 %}
+    <left style="float:left;">
+        {% if latest %}
+        <a href="{% url new_posts page|add:"-1" %}">
+        {% else %}
+        <a href="{% url top_posts page|add:"-1" %}">
+        {% endif %}
+        <<< Prev</a>
+    </left>
+    {% endifnotequal %}
+    {% if more_pages %}
+    <right style="float:right;">
+        {% if latest %}
+        <a href="{% url new_posts page|add:"1" %}">
+        {% else %}
+        <a href="{% url top_posts page|add:"1" %}">
+        {% endif %}
+    More >>></a></right>
+    {% endif %}
+{% endif %}
+
+<BR><BR>
+{% if mcache_stats %}
+<h4>Memcache Stats <BR>
+    Hits:{{mcache_stats.hits}} Misses:{{mcache_stats.misses}} bytes:{{mcache_stats.bytes}} Items:{{mcache_stats.items}}</h4>
+{% endif %}
+
+{% endblock %}

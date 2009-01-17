@@ -1,0 +1,84 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+{% load kabar_extras %}
+<html> 
+    <head> 
+        <title> 
+            {% block page_title %}Garam Kabar - Community Ranked India News{% endblock %}
+        </title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta content="Latest India top news kabar samachar" name="keywords">
+	<meta name="verify-v1" content="g9OhhXe9/3wprftbS5HwLNORQ90+7MfxyiQbWU4aNZc=" />
+        {% if debug %} 
+        <link rel="stylesheet" type="text/css" href="/static/reset-fonts-grids.css">
+        {% block jquery_s %}<script type="text/javascript" src="/static/jquery-1.2.6.js"></script>{% endblock jquery_s %}
+        {% else %}
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.5.2/build/reset-fonts-grids/reset-fonts-grids.css"> 
+        {% block jquery %}<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>{% endblock %}
+        {% endif %}
+        <link href="/static/kabar_0_0.css" rel="stylesheet" type="text/css">
+        {% block kabar_js %} <script type="text/javascript" src="/static/kabar_0_0.js"></script> {% endblock %}
+    </head>
+    <body> 
+
+    <div id="doc3" class="yui-t1"> 
+      <div id="bd">
+	    <div id="yui-main"> 
+		  <div class="yui-b"> 
+			<div class="yui-ge">
+                <div class="yui-u first">
+
+                    <div class="heading">
+                        <div class="headline">
+                            <a href="/" class="headline">Garam Kabar (गरम खबर)</a>
+                        </div>
+                       <ul id="tabnav">
+                        <li class="tab1"><a href="/">Home</a></li>
+                        <li class="tab2"><a href="/latest">Latest</a></li>
+                        <li class="tab3"><a href="/about">About</a></li>
+                        </ul>
+                        <div class="userinfo">
+                            {% block session_links %}
+                            <p align="right">
+                            {% if ruser %}
+                                Hello {{ruser|nickurlize:1}}
+                                <a href="{{logout_url}}">Logout</a>
+                                <a href="/post">Submit</a>
+                            {% else %}
+                                Welcome Guest! <a href="{{login_url}}">Login</a>
+                            {% endif %}
+                            </p>
+                            {% endblock %}
+                        </div>
+                        <BR>
+                        <div class="tagline">
+                            <a href="/" class="tagline">Community ranked India news site</a>
+                        </div>
+                    </div>
+                    <div class="content">
+                        {% block content %} {% endblock %}
+                        <BR>
+                    </div>
+                    <div class="footer"> 
+                        <center>About | Blog | Contact</center>
+                    </div>
+			    </div>
+			    <div class="yui-u"> </div>
+            </div> 
+          </div> 
+        </div> <!-- yui-main --!>
+       </div> <!-- bd --!>
+   </div>  <!-- doc3 --!>
+
+{% if not debug %} 
+<script type="text/javascript">
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+var pageTracker = _gat._getTracker("UA-5170277-1");
+pageTracker._trackPageview();
+</script>
+{% endif %}
+
+    </body>
+</html>

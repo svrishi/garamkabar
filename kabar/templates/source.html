@@ -1,0 +1,61 @@
+
+{% extends "base.html" %}
+{% load kabar_extras %}
+
+{% block page_title %} Garam Kabar {% endblock %}
+
+{% block content %}
+
+{% if debug %}
+
+        <div class="voteimgs"> 
+            {% if ruser|usercanvote:src %}
+            <div class="voteimgsdisp" id="voteimgsdisp{{src.disp_id}}">
+            <a href="/vote/up/" id="voteup{{src.disp_id}}"><img src="/static/vup.gif" /></a> <BR>
+            <a href="/vote/down/" id="votedown{{src.disp_id}}"><img src="/static/vdown.gif" /></a>
+            </div>
+            <div class="novoteimgsdisp" id="novoteimgsdisp{{src.disp_id}}"> 
+            <img src="/static/novup.gif" /><BR><img src="/static/novdown.gif" />
+            </div>
+            {% else %}
+            <img src="/static/novup.gif" /><BR><img src="/static/novdown.gif" />
+            {% endif %}
+        </div>
+        <a class="srctitle" rel="nofollow" href={{src.url}}>{{src.title}} ({{src.hostname}})</a>
+        <br> <span class="srctext">
+        <span id="points{{src.key}}">{{src.points}}</span> points, posted by
+        {{src.posted_by_ruser|nickurlize:0}} {{src.created_on|timesince}} ago
+        </span>
+        {% if debug and ruser and ruser.is_admin %}
+        rank:{{src.rank}}
+        {% endif %} 
+	{{src.num_comments}} comments
+
+	<BR><BR>
+	{% if ruser %}
+        <form action="." method="POST">
+	<H3>Add a comment:</H3><BR>
+	<textarea rows="8" cols="80" name="ctext"></textarea>
+        <BR><BR> <input type="submit" value="Submit" />
+        </form>
+	{% else %}
+	<H3> Please sign-in to post comments.</H3>
+	{% endif %}
+	<BR><BR>
+
+	{% for c in comments %}
+		<h3>r:{{c.rank}} pts:{{c.points}} d:{{c.depth}}</h3>
+		<h3>{{c.text}}</h3>
+		<a href="/comment/{{c.key}}/">
+		{% ifequal c.posted_by_ruser.entry_id ruser.entry_id %}
+		Edit
+		{% else %}
+		Reply
+		{% endifequal %}
+		</a>
+		<BR><BR>
+	{% endfor %}
+
+{% endif %}
+
+{% endblock %}

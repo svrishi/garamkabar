@@ -1,0 +1,45 @@
+
+{% extends "base.html" %}
+{% block page_title %} Garam Kabar user: {{puser.nick}} {% endblock %}
+
+{% block content %}
+<BR>
+<table width="80%">
+    <tr><td width="25%">Nickname:</td><td>{{puser.nick}}</td></tr>
+    <tr><td>Karma:</td><td>{{puser.karma}}</td></tr>
+    <tr><td>Joined:</td><td>{{puser.registered_date|timesince}} ago</td></tr>
+    <tr><td>Number of submissions:</td><td>{{puser.num_posts}}</td></tr>
+    {% if puser.last_post_date %}
+    <tr><td>Last submission:</td><td>{{puser.last_post_date|timesince}} ago</td></tr>
+    {% endif %}
+    {% if puser.last_update_date %}
+    <tr><td>Last activity:</td><td>{{puser.last_update_date|timesince}} ago</td></tr>
+    {% endif %}
+</table>
+<BR>
+
+{% comment %}
+    {% if is_owner %}
+    <form action="." method="POST">
+        <label>About page:</label>
+        <input type="text" name="about_page_url" id="id_about_page_url" size="50" value="{{puser.about_page_url|escape}}" />
+        <BR>
+        <fieldset>
+        <label>About me:</label>
+        <textarea name="about_me" id="id_about_me" rows="1" cols="5">{{puser.about_me|escape}}</textarea>
+    </fieldset>
+    <BR>
+    <input type="submit" value="Submit" /> </p>
+    </form>
+    {% else %}
+        {% if puser.about_page_url %}
+        About page: {{puser.about_page_url|escape|urlize}}
+        {% endif %}
+        {% if puser.about_me %}
+        About me:
+        {{puser.about_me|escape}}
+        {% endif %}
+    {% endif %}
+{% endcomment %}
+{% endblock %}
+

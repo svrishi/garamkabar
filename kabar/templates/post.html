@@ -1,0 +1,29 @@
+
+{% extends "base.html" %}
+{% block page_title %} Garam Kabar - Post new link {% endblock %}
+
+{% block content %}
+    <BR>
+    <h1><b>
+        {% if error_str %}
+        {{ error_str }}
+        {% endif %}
+    </b></h1>
+    <BR>
+    <p> Post new link:</p> <BR>
+        <form action="." method="POST">
+            <table>
+                <tr>
+                    <td><label>Title:</label></td>
+                    <td><input type="text" name="title" id="id_title" size="80" maxlength="80" /></td>
+                </tr>
+                <tr>
+                    <td>URL:</td>
+                    <td><input type="text" name="url" id="id_url" size="80" maxlength="250" /></td>
+                </tr>
+            </table>
+            <BR>
+            <input type="submit" value="Submit" />
+        </form>
+{% endblock %}
+

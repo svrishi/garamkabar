@@ -1,0 +1,33 @@
+
+{% extends "base.html" %}
+{% block page_title %} Garam Kabar - Signup {% endblock %}
+
+{% block session_links %}{% endblock %}
+
+{% block content %}
+    <BR>
+    <h1><b>
+        {% if error_str %}
+        {{ error_str }}
+        {% endif %}
+    </b></h1>
+    <BR>
+    <p> New user registration:</p><BR>
+        <form action="." method="POST">
+            <table>
+                <tr>
+                    <td>Site nickname:</td>
+                    <td><input type="text" name="nick" id="id_nick" value="{{ user_nick|escape }}" size="50" maxlength="35"/></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><input type="text" name="email" id="id_url" value="{{ user_email|escape}}" size="50" maxlength="50"/></td>
+                </tr>
+            </table>
+            <BR>
+            <input type="submit" value="Submit" />
+            <input type="hidden" name="cont" id="id_cont" value="{{ cont }}" />
+            <input type="hidden" name="act" id="id_act" value="{{ act }}" />
+            <input type="hidden" name="actarg" id="id_actarg" value="{{ actarg }}" />
+        </form>
+{% endblock %}

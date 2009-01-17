@@ -1,0 +1,11 @@
+
+GK is a community ranked India news site, hosted on Google App Engine.
+Join us at garamkabar.com, subscribe to the google group at:
+	http://groups.google.com/group/garamkabar
+Contributions are welcome. If you find bugs or issues in the code
+please send an email to admin AT garamkabar DOT com
+
+To run the application:
+* Install the Google App Engine SDK
+* Run the app on the localhost: 
+  python manage.py runserver

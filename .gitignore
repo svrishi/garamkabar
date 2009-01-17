@@ -1,0 +1,13 @@
+*.pyc
+*.swp
+.svn
+/django-svn/*
+/django
+.ropeproject/*
+TAGS
+\#*\#
+.google_appengine
+.project
+.pydevproject
+.hg/*
+.hgignore
